@@ -3,12 +3,12 @@ import '../../css/util.css';
 
 import React from 'react';
 import { Row, Col, Typography } from 'antd';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const { Title } = Typography;
 
 export default function Login() {
-
+    const navigate = useNavigate();
 
   return (
     <div className='limiter'>
@@ -37,7 +37,7 @@ export default function Login() {
 
 
                 <div className="container-login100-form-btn">
-                    <button className="login100-form-btn" id="search" onclick="clicked()">
+                    <button className="login100-form-btn" id="search" onClick={() => navigate('/chat')}>
 						Login
 					</button>
                 </div>

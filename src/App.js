@@ -7,10 +7,10 @@ import AddFriendModal from './components/Modals/AddFriendModal';
 function App() {
   return <BrowserRouter>
     <Routes>
-      <Route component={<Login />} path="/login" />
-      <Route component={<ChatRoom />} path="/" />
+      <Route element={<Login />} path="/" />
+      <Route element={<ChatRoom />} path="/chat" />
     </Routes>
-    <AddFriendModal />
+    {/* <AddFriendModal /> */}
   </BrowserRouter>
 
   // return <Login />

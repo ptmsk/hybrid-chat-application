@@ -3,8 +3,8 @@ import { Form, Modal, Input } from 'antd';
 import { AppContext } from '../../Context/AppProvider';
 
 export default function AddFriendModal() {
-    // const [isAddFriendVisible, setIsAddFriendVisible] = useContext(AppContext);
-    const [isAddFriendVisible, setIsAddFriendVisible] = useState(true);
+    const [isAddFriendVisible, setIsAddFriendVisible] = useContext(AppContext);
+    // const [isAddFriendVisible, setIsAddFriendVisible] = useState(true);
     const [form] = Form.useForm();
 
     const handleOk = () => {
