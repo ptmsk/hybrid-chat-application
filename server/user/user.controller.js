@@ -30,11 +30,24 @@ class UserController {
           res.status(200).json({
             success: true,
             message: "Done!",
-            user: user
+            user: user,
           });
         }
       }
     );
+  }
+
+  async register(req, res) {
+    try {
+      const newUser = new userModel({
+        ...req.body,
+        channel: req.body.fullname,
+      });
+      await newUser.save();
+      res.send({ success: true, user: newUser });
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 
