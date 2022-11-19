@@ -1,25 +1,28 @@
 import "../../css/main.css";
 import "../../css/util.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { getUserLogin } from "./action";
 
 const { Title } = Typography;
 
-export default function Login() {
+export default function Login({ handleLogin }) {
   const navigate = useNavigate();
-  const [incorect, setincorect] = useState(false)
+  const [incorect, setincorect] = useState(false);
   const [fullname, setfullname] = useState("");
-  const onLogin = async () => {
+  const onLogin = async (e) => {
     let req = {
-        fullname
-    }
+      fullname,
+    };
 
-    const user = await getUserLogin(req);
-    if(user) navigate('/chat/')
-    else setincorect(true)
+    const user = await getUserLogin(req)
+    if (user) {
+      navigate("/chat");
+      handleLogin()
+      window.location.reload();
+    } else setincorect(true);
   };
   return (
     <div className="limiter">
@@ -52,9 +55,15 @@ export default function Login() {
               Login
             </button>
           </div>
-          <div><span className="txt1">Create account...</span></div>
+          <div>
+            <span className="txt1">Create account...</span>
+          </div>
           <div className="container-login100-form-btn">
-            <button className="login100-form-btn" onClick={() => navigate("/signup")} id="search">
+            <button
+              className="login100-form-btn"
+              onClick={() => navigate("/signup")}
+              id="search"
+            >
               Sign up
             </button>
           </div>

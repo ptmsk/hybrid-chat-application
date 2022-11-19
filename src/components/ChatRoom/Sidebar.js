@@ -13,11 +13,11 @@ const SidebarStyled = styled.div`
   height: 100vh;
 `;
 
-export default function Sidebar() {
+export default function Sidebar({handleLogout}) {
   return (
     <div className=''>
       <Row>
-        <Col span={24}><UserInfo /></Col>
+        <Col span={24}><UserInfo handleLogout={handleLogout}/></Col>
         <Col span={24}><FriendList /></Col>
       </Row>
     </div>
