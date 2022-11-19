@@ -10,7 +10,7 @@ function App() {
   return <BrowserRouter>
     <Routes>
       <Route element={<Login />} path="/" />
-      <Route element={<ChatRoom />} path="/chat/:username" />
+      <Route element={<ChatRoom />} path="/chat/" />
       <Route element={<Signup />} path="/signup" />
       <Route element={<Error />} path="*" />
     </Routes>

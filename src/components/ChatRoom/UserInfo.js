@@ -24,13 +24,13 @@ export default function UserInfo() {
     // }
 
   const navigate = useNavigate();
-  const { username } = useParams();
+  // const { username } = useParams();
 
   return (
     <WrappedStyled>
         <div>
             <Avatar src={""}>A</Avatar>
-            <Typography.Text className='username'>{ username }</Typography.Text>
+            <Typography.Text className='username'>THNH</Typography.Text>
         </div>
 
         {/* <Button type='text' className="add-friend" onClick={handleAddFriend} ghost>Add friend</Button> */}
