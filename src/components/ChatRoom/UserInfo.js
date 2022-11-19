@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Avatar, Typography } from 'antd';
 import styled from 'styled-components';
 import { AppContext } from '../../Context/AppProvider';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const WrappedStyled = styled.div`
@@ -24,12 +24,13 @@ export default function UserInfo() {
     // }
 
   const navigate = useNavigate();
+  const { username } = useParams();
 
   return (
     <WrappedStyled>
         <div>
             <Avatar src={""}>A</Avatar>
-            <Typography.Text className='username'>THNH</Typography.Text>
+            <Typography.Text className='username'>{ username }</Typography.Text>
         </div>
 
         {/* <Button type='text' className="add-friend" onClick={handleAddFriend} ghost>Add friend</Button> */}

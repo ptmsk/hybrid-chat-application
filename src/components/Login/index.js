@@ -18,7 +18,7 @@ export default function Login() {
     }
 
     const user = await getUserLogin(req);
-    if(user) navigate('/chat')
+    if(user) navigate('/chat/' + user.fullname)
     else setincorect(true)
   };
   return (
