@@ -11,12 +11,11 @@ export default function Signup() {
 
   const onRegister = async () => {
     let req = {
-      newusername,
+      fullname: newusername,
     };
 
     const user = await postNewUser(req);
-    if (user) navigate("/chat/" + user.fullname);
-    else setnewusername(true);
+    if (user) navigate('/');
   };
   return (
     <div className="limiter">
