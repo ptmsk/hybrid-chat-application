@@ -26,18 +26,8 @@ export default function Login() {
       <Row justify="center" style={{ heigh: 800 }}>
         <Col className="login100-form validate-form" span={8}>
           <Title className="login100-form-title p-b-43">Hybrid Chat Demo</Title>
-          <div className="container-login100-form-btn">
-            <button
-              type="button"
-              className="login-with-google-btn"
-              id="quickstart-sign-in"
-            >
-              Sign in with Google
-            </button>
-          </div>
-
           <div className="text-center p-t-46 p-b-20">
-            <span className="txt1">Sign in</span>
+            <h1>Sign in</h1>
           </div>
 
           <div
@@ -52,14 +42,20 @@ export default function Login() {
               onChange={(event) => setfullname(event.target.value)}
             />
             <span className="focus-input100"></span>
-            <span className="label-input100">Email</span>
+            <span className="label-input100">Username</span>
           </div>
-          {incorect && <h1>Sai thông tin</h1>}
+          {incorect && <h3>Wrong infomation</h3>}
           {incorect || <></>}
 
           <div className="container-login100-form-btn">
             <button className="login100-form-btn" onClick={onLogin} id="search">
               Login
+            </button>
+          </div>
+          <div><span className="txt1">Create account...</span></div>
+          <div className="container-login100-form-btn">
+            <button className="login100-form-btn" onClick={() => navigate("/signup")} id="search">
+              Sign up
             </button>
           </div>
         </Col>
