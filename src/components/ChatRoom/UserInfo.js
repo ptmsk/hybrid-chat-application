@@ -25,7 +25,6 @@ export default function UserInfo({ handleLogout }) {
   const handleClick = () => {
     navigate("/");
     localStorage.clear();
-    window.location.reload();
   };
 
 

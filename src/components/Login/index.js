@@ -1,14 +1,14 @@
 import "../../css/main.css";
 import "../../css/util.css";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Row, Col, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
 import { getUserLogin } from "./action";
 
 const { Title } = Typography;
 
-export default function Login({ handleLogin }) {
+export default function Login() {
   const navigate = useNavigate();
   const [incorect, setincorect] = useState(false);
   const [fullname, setfullname] = useState("");
@@ -20,8 +20,6 @@ export default function Login({ handleLogin }) {
     const user = await getUserLogin(req)
     if (user) {
       navigate("/chat");
-      handleLogin()
-      window.location.reload();
     } else setincorect(true);
   };
   return (
