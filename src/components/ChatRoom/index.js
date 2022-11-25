@@ -1,9 +1,9 @@
 import "../../assets/stylesheets/chatroom.css"
 
-import React from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function ChatRoom({ handleLogout }) {
+export default function ChatRoom({ username, handleLogout }) {
     const navigate = useNavigate();
     const handleClick = () => {
         navigate("/");
@@ -16,7 +16,7 @@ export default function ChatRoom({ handleLogout }) {
         <div class="page-title">
             <div class="row gutters">
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                    <h5 class="title">Chat Room of THNH</h5>
+                    <h5 class="title">Chat Room of {username}</h5>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"> </div>
             </div>
@@ -79,6 +79,7 @@ export default function ChatRoom({ handleLogout }) {
                                 </div>
                                 <div class="chat-container">
                                     <ul class="chat-box chatContainerScroll">
+                                        {/* {renderMess} */}
                                         <li class="chat-left">
                                             <div class="chat-avatar">
                                                 <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin" />
