@@ -10,13 +10,13 @@ socket.on('DANH_SACH_ONLINE', userOnline => {
 
     userOnline.forEach(user => {
         const { username, peerId } = user;
-        $('#ulUser').append(`<li id="${peerId}">${username}</li>`);
+        $('#ulUser').append(`<li id="${peerId}" class="btn btn-secondary mb-2">${username}</li><br>`);
     });
 
     socket.on('CO_NGUOI_DUNG_MOI', user => {
         const { username, peerId } = user;
         userOnline.push(user);
-        $('#ulUser').append(`<li id="${peerId}">${username}</li>`);
+        $('#ulUser').append(`<li id="${peerId}" class="btn btn-secondary mb-2">${username}</li>`);
     });
 
     socket.on('AI_DO_NGAT_KET_NOI', peerId => {
@@ -31,7 +31,7 @@ socket.on('DANH_SACH_ONLINE', userOnline => {
             if(data.type == 'message')
             {
                 $('#chat-box').append(`<div style="clear: both; float: left; background-color: gray; margin: 2px;
-                border-radius: 4px;">${username}: ${data.content}</div>`)
+                border-radius: 4px;" class="p-2">${username}: ${data.content}</div>`)
             }
             else if(data.type == 'file')
             {
@@ -40,7 +40,7 @@ socket.on('DANH_SACH_ONLINE', userOnline => {
                 var blob = new Blob([file], {type: data.type});
                 var url = URL.createObjectURL(blob);
                 $('#chat-box').append(`<a style="clear: both; float: left; background-color: gray; margin: 2px;
-                border-radius: 4px;" href="${url}" download='${filename}'>${filename}</a>`);
+                border-radius: 4px;" class="p-2" href="${url}" download='${filename}'>${filename}</a>`);
             }
         });  
     });
@@ -83,7 +83,7 @@ $('#ulUser').on('click', 'li', function() {
             if(conn.open)
             {
                 const mess=$('#messages').val();
-                $('#chat-box').append(`<div style="clear: both; float: right; background-color: green; margin: 2px; border-radius: 4px;">you: ${mess}</div>`)
+                $('#chat-box').append(`<div style="clear: both; float: right; background-color: green; margin: 2px; border-radius: 4px;" class="p-2">you: ${mess}</div>`)
                 conn.send({content: mess, type: 'message'});
             }
         });
@@ -96,7 +96,7 @@ $('#ulUser').on('click', 'li', function() {
                 var blob = new Blob([file], {type: file.type});
                 var url = URL.createObjectURL(blob);
                 $('#chat-box').append(`<a style="clear: both; float: right; background-color: green; margin: 2px;
-                border-radius: 4px;" href="${url}" download='${filename}'>${filename}</a>`);
+                border-radius: 4px;" class="p-2" href="${url}" download='${filename}'>${filename}</a>`);
 
                 conn.send({content: file, type: 'file', name: filename});
                 console.log(file);
