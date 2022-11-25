@@ -17,7 +17,7 @@ class UserController {
 
   login(req, res) {
     let check = userModel.findOne(
-      { fullname: req.body.fullname },
+      { fullname: req.body.fullname, password: req.body.password },
       (err, user) => {
         console.log(user);
         if (!user) {
