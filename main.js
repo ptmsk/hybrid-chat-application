@@ -2,25 +2,6 @@ const socket = io('http://localhost:3000');
 
 $('#div-chat').hide();
 
-// let customConfig;
-
-// $.ajax({
-//   url: "https://service.xirsys.com/ice",
-//   data: {
-//     ident: "vanpho",
-//     secret: "2b1c2dfe-4374-11e7-bd72-5a790223a9ce",
-//     domain: "vanpho93.github.io",
-//     application: "default",
-//     room: "default",
-//     secure: 1
-//   },
-//   success: function (data, status) {
-//     // data.d is where the iceServers object lives
-//     customConfig = data.d;
-//     console.log(customConfig);
-//   },
-//   async: false
-// });
 
 socket.on('DANH_SACH_ONLINE', userOnline => {
     $('#div-chat').show();
@@ -47,8 +28,20 @@ socket.on('DANH_SACH_ONLINE', userOnline => {
     peer.on('connection', function(conn){
         const username = userOnline.find(e=>e.peerId == conn.peer).username;
         conn.on('data',function(data){
-            $('#chat-box').append(`<div style="clear: both; float: left; background-color: gray; margin: 2px;
-            border-radius: 4px;">${username}: ${data}</div>`)
+            if(data.type == 'message')
+            {
+                $('#chat-box').append(`<div style="clear: both; float: left; background-color: gray; margin: 2px;
+                border-radius: 4px;">${username}: ${data.content}</div>`)
+            }
+            else if(data.type == 'file')
+            {
+                const file = data.content;
+                const filename = data.name;
+                var blob = new Blob([file], {type: data.type});
+                var url = URL.createObjectURL(blob);
+                $('#chat-box').append(`<a style="clear: both; float: left; background-color: gray; margin: 2px;
+                border-radius: 4px;" href="${url}" download='${filename}'>${filename}</a>`);
+            }
         });  
     });
 });
@@ -57,19 +50,6 @@ socket.on('DANG_KY_THAT_BAI', (warning) => alert(warning));
 
 socket.on('DANG_NHAP_THAT_BAI', (warning) => alert(warning));
 
-// function openStream() {
-//     const config = { audio: false, video: true };
-//     return navigator.mediaDevices.getUserMedia(config);
-// }
-
-// function playStream(idVideoTag, stream) {
-//     const video = document.getElementById(idVideoTag);
-//     video.srcObject = stream;
-//     video.play();
-// }
-
-// openStream()
-// .then(stream => playStream('localStream', stream));
 
 const peer = new Peer();
 
@@ -87,37 +67,7 @@ peer.on('open', id => {
     });
 });
 
-//Caller
-// $('#btnCall').click(() => {
-//     const id = $('#remoteId').val();
-//     openStream()
-//     .then(stream => {
-//         playStream('localStream', stream);
-//         const call = peer.call(id, stream);
-//         call.on('stream', remoteStream => playStream('remoteStream', remoteStream));
-//     });
-// });
 
-// //Callee
-// peer.on('call', call => {
-//     openStream()
-//     .then(stream => {
-//         call.answer(stream);
-//         playStream('localStream', stream);
-//         call.on('stream', remoteStream => playStream('remoteStream', remoteStream));
-//     });
-// });
-
-// $('#ulUser').on('click', 'li', function() {
-//     const id = $(this).attr('id');
-//     console.log(id);
-//     openStream()
-//     .then(stream => {
-//         playStream('localStream', stream);
-//         const call = peer.call(id, stream);
-//         call.on('stream', remoteStream => playStream('remoteStream', remoteStream));
-//     });
-// });
 $('#ulUser').on('click', 'li', function() {
     const id = $(this).attr('id');
     const username = $(this).text();
@@ -134,25 +84,58 @@ $('#ulUser').on('click', 'li', function() {
             {
                 const mess=$('#messages').val();
                 $('#chat-box').append(`<div style="clear: both; float: right; background-color: green; margin: 2px; border-radius: 4px;">you: ${mess}</div>`)
-                conn.send(mess);
+                conn.send({content: mess, type: 'message'});
             }
         });
+
+        $('#send-file').click(()=>{
+            if(conn.open)
+            {
+                const file = document.getElementById('file-upload').files[0];
+                const filename = file.name;
+                var blob = new Blob([file], {type: file.type});
+                var url = URL.createObjectURL(blob);
+                $('#chat-box').append(`<a style="clear: both; float: right; background-color: green; margin: 2px;
+                border-radius: 4px;" href="${url}" download='${filename}'>${filename}</a>`);
+
+                conn.send({content: file, type: 'file', name: filename});
+                console.log(file);
+            }
+        });
+
         $('#ulUser').on('click', 'li', function(){
             conn.close();
             console.log(conn);
         });
-        $('#file').input(function(e){
-            console.log(e.target.files);
-            var file = e.target.files[0];
-            var blob = new Blob(event.target.files, {type: file.type});
-
-            this.state.conn.send({
-                file: blob,
-                filename: file.name,
-                filetype: file.type
-            });
-        });
     });
 });
 
+// $('#connect').click(()=>{
+//     var id=$('#id-connect').val();
+//     var conn = peer.connect(id);
+//         // on open will be launch when you successfully connect to PeerServer
+//     conn.on('open', function(){
+//         console.log(peer.connections);
+//         document.getElementById('chat-to').innerText='Chat with: '+id;
+//         console.log('connect to: '+ id);
+//         // here you have conn.id
+//         $('#send').click(()=>{
+//             if(conn.open)
+//             {
+//                 const mess=$('#messages').val();
+//                 $('#chat-box').append(`<div style="clear: both; float: right; background-color: green; margin: 2px; border-radius: 4px;">you: ${mess}</div>`)
+//                 conn.send({content: mess, type: 'message'});
+//             }
+//         });
 
+//         $('#send-file').click(()=>{
+//             if(conn.open)
+//             {
+//                 const file = $('#file-upload').files[0];
+//                 const filename = file.split(/(\\|\/)/g).pop();
+//                 $('#chat-box').append(`<a href="${file}" download>${filename}</a>`);
+//                 conn.send({content: file, type: 'file'});
+//             }
+//         });
+//     });
+// });

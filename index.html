@@ -1,36 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Khoa Pham WebRTC</title>
-        <script src="jquery.js"></script>
-        <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
-        <script src="socket.io.js"></script>
-    </head>
-    <body>
-        <div id="div-chat">
-            <p>Online user:</p>
-            <ul id="ulUser">
-            </ul>
-            <h3 id="my-peer">Your Id: </h3>
-            <div id="chat-to" style="color: cyan; font-weight: bold;"></div>
-            <div id="chat-box" style="width: 200px; height: 200px; border: 2px solid;">
+
+<head>
+    <title>Khoa Pham WebRTC</title>
+    <script src="jquery.js"></script>
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+    <script src="socket.io.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <div id="div-chat">
+        <p>Online user:</p>
+        <ul id="ulUser">
+        </ul>
+        <h3 id="my-peer">Your Id: </h3>
+        <div id="chat-to" style="color: cyan; font-weight: bold;"></div>
+        <div id="chat-box" style="width: 200px; height: 200px; border: 2px solid;">
+        </div>
+        <br>
+        <input type="text" id="messages" placeholder="Enter your messages"
+            style="background-color: gray; color: white;">
+        <button id="send">send</button>
+        <br>
+        <input type="file" id="file-upload">
+        <button id="send-file">send-file</button>
+        <!-- 
+            <input type="text" id="id-connect">
+            <button id="connect">connect</button> -->
+    </div>
+
+    <div id="div-dang-nhap" class="text-center">
+        <div class="form-signin w-100 m-auto">
+            <img class="mb-4 border rounded-circle p-1" src="team_logo.png" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <div class="form-floating">
+                <input type="username" class="form-control" id="txtUsername-dangnhap" name="username"
+                    placeholder="Username" required>
+                <label for="floatingInput">Username</label>
             </div>
-            <br>
-            <input type="text" id="messages" placeholder="Enter your messages" style="background-color: gray; color: white; margin: 4px;"><br>
-            <input type="file" id="file" name="file" style="margin: 4px;"><br>
-            <button id="send" style="margin: 4px;">send</button>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="txtPassword-dangnhap" name="password"
+                    placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+
+            <div class="checkbox my-3">
+                <p class="text-muted">Sign in as User</p>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" id="btnLogin">Sign in</button>
+            <button type="button" class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Sign Up
+              </button>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="txtUsername-dangky" placeholder="Enter your username">
+                          </div>
+                          <div class="">
+                            <input class="form-control" id="txtPassword-dangky" placeholder="Enter your password"></input>
+                          </div>
+                        <!-- <input type="text" id="txtUsername-dangky" placeholder="Enter your username">
+                        <input type="text" id="txtPassword-dangky" placeholder="Enter your password"> -->
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" id="btnSignUp" data-bs-dismiss="modal">Sign Up</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <p class="mt-5 mb-3 text-muted">© Lemon team</p>
         </div>
-        <div id="div-dang-ky">
-            <br /><br />
-            <input type="text" id="txtUsername-dangky" placeholder="Enter your username">
-            <input type="text" id="txtPassword-dangky" placeholder="Enter your password">
-            <button id="btnSignUp">Sign Up</button>
-        </div>
-        <div id="div-dang-nhap">
-            <br /><br />
-            <input type="text" id="txtUsername-dangnhap" placeholder="Enter your username">
-            <input type="text" id="txtPassword-dangnhap" placeholder="Enter your password">
-            <button id="btnLogin">Login</button>
-    </body>
-    <script src="main.js"></script>
+        
+</body>
+<script src="main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+
 </html>
