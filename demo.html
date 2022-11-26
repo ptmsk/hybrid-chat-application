@@ -1,0 +1,50 @@
+
+    <div id="div-dang-nhap" class="text-center">
+        <div class="form-signin w-100 m-auto">
+            <img class="mb-4 border rounded-circle p-1" src="team_logo.png" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <div class="form-floating">
+                <input type="username" class="form-control" id="txtUsername-dangnhap" name="username"
+                    placeholder="Username" required>
+                <label for="floatingInput">Username</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="txtPassword-dangnhap" name="password"
+                    placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+
+            <div class="checkbox my-3">
+                <p class="text-muted">Sign in as User</p>
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" id="btnLogin">Sign in</button>
+            <button type="button" class="btn btn-warning mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Sign Up
+              </button>
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="txtUsername-dangky" placeholder="Enter your username">
+                          </div>
+                          <div class="">
+                            <input class="form-control" id="txtPassword-dangky" placeholder="Enter your password"></input>
+                          </div>
+                        <!-- <input type="text" id="txtUsername-dangky" placeholder="Enter your username">
+                        <input type="text" id="txtPassword-dangky" placeholder="Enter your password"> -->
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" id="btnSignUp" data-bs-dismiss="modal">Sign Up</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <p class="mt-5 mb-3 text-muted">© Lemon team</p>
+        </div>
+        
