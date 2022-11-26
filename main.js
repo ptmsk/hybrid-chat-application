@@ -3,6 +3,34 @@ const socket = io('https://servermmt.herokuapp.com/');
 $("#div-chat").hide();
 let curr_username = "";
 
+const peer = new Peer();
+
+peer.on("open", (id) => {
+  $("#btnSignUp").click(() => {
+    const username = $("#txtUsername-dangky").val();
+    const password = $("#txtPassword-dangky").val();
+    socket.emit("NGUOI_DUNG_DANG_KY", {
+      username: username,
+      password: password,
+      peerId: id,
+    });
+    $("#my-peer").html('Your Name: ' + username);
+  });
+  $("#btnLogin").click(() => {
+    const username = $("#txtUsername-dangnhap").val();
+    const password = $("#txtPassword-dangnhap").val();
+    socket.emit("NGUOI_DUNG_DANG_NHAP", {
+      username: username,
+      password: password,
+      peerId: id,
+    });
+    $("#my-peer").html('Your Name: ' + username);
+  });
+});
+
+socket.on("DANG_KY_THAT_BAI", (warning) => alert(warning));
+socket.on("DANG_NHAP_THAT_BAI", (warning) => alert(warning));
+
 socket.on("DANH_SACH_ONLINE", (userOnline) => {
   $("#div-chat").show();
   $("#div-dang-ky").hide();
@@ -19,7 +47,7 @@ socket.on("DANH_SACH_ONLINE", (userOnline) => {
     const { username, peerId } = user;
     userOnline.push(user);
     $("#ulUser").append(
-      `<li id="${peerId}" class="btn btn-secondary mb-2">${username}</li><br>`
+      `<li id="${peerId}" class="btn btn-secondary mb-2">${username}</li>`
     );
   });
 
@@ -51,41 +79,14 @@ socket.on("DANH_SACH_ONLINE", (userOnline) => {
   });
 });
 
-socket.on("DANG_KY_THAT_BAI", (warning) => alert(warning));
 
-socket.on("DANG_NHAP_THAT_BAI", (warning) => alert(warning));
-
-const peer = new Peer();
-
-peer.on("open", (id) => {
-  $("#btnSignUp").click(() => {
-    const username = $("#txtUsername-dangky").val();
-    const password = $("#txtPassword-dangky").val();
-    socket.emit("NGUOI_DUNG_DANG_KY", {
-      username: username,
-      password: password,
-      peerId: id,
-    });
-    $("#my-peer").append(username);
-  });
-  $("#btnLogin").click(() => {
-    const username = $("#txtUsername-dangnhap").val();
-    const password = $("#txtPassword-dangnhap").val();
-    socket.emit("NGUOI_DUNG_DANG_NHAP", {
-      username: username,
-      password: password,
-      peerId: id,
-    });
-    $("#my-peer").html('Your Name: ' + username);
-  });
-});
 
 $("#ulUser").on("click", "li", function () {
   const id = $(this).attr("id");
   const username = $(this).text();
   curr_username = username;
-  $(".p-2").addClass("visually-hidden");
-  $(`.${username}`).removeClass("visually-hidden");
+    $(".p-2").addClass("visually-hidden"); //???
+    $(`.${username}`).removeClass("visually-hidden"); //??
 
   var conn = peer.connect(id);
   // on open will be launch when you successfully connect to PeerServer
