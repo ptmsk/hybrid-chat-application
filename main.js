@@ -39,7 +39,7 @@ socket.on("DANH_SACH_ONLINE", (userOnline) => {
   userOnline.forEach((user) => {
     const { username, peerId } = user;
     $("#ulUser").append(
-      `<li id="${peerId}" class="btn btn-secondary mb-2">${username}</li><br>`
+      `<li id="${peerId}" class="btn btn-secondary list-group-item mb-2">${username}</li>`
     );
   });
 
@@ -47,7 +47,7 @@ socket.on("DANH_SACH_ONLINE", (userOnline) => {
     const { username, peerId } = user;
     userOnline.push(user);
     $("#ulUser").append(
-      `<li id="${peerId}" class="btn btn-secondary mb-2">${username}</li>`
+      `<li id="${peerId}" class="btn btn-secondary list-group-item mb-2">${username}</li>`
     );
   });
 
