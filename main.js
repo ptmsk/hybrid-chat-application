@@ -101,6 +101,7 @@ $("#ulUser").on("click", "li", function () {
           `<div style="clear: both; float: right; background-color: green; margin: 2px; border-radius: 4px;" class="p-2 ${username}">${mess}</div>`
         );
         conn.send({ content: mess, type: "message" });
+        console.log(conn)
       }
     });
 
