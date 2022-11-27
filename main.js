@@ -84,6 +84,12 @@ socket.on("DANH_SACH_ONLINE", (userOnline) => {
 $("#ulUser").on("click", "li", function () {
   const id = $(this).attr("id");
   const username = $(this).text();
+
+  $(".list-group-item").removeClass("active");
+  $(".list-group-item").removeClass("disabled");
+  $(this).addClass("active");
+  $(this).addClass('disabled');
+
   curr_username = username;
     $(".p-2").addClass("visually-hidden"); //???
     $(`.${username}`).removeClass("visually-hidden"); //??
