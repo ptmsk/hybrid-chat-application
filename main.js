@@ -1,4 +1,4 @@
-const socket = io('https://servermmt.herokuapp.com/');
+const socket = io('https://servermmt.herokuapp.com/',{transports: ['websocket']});
 
 $("#div-chat").hide();
 let curr_username = "";
