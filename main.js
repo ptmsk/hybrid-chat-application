@@ -1,7 +1,35 @@
-const socket = io('https://servermmt.herokuapp.com/');
+const socket = io('https://servermmt.herokuapp.com/',{transports: ['websocket']});
 
 $("#div-chat").hide();
 let curr_username = "";
+
+const peer = new Peer();
+
+peer.on("open", (id) => {
+  $("#btnSignUp").click(() => {
+    const username = $("#txtUsername-dangky").val();
+    const password = $("#txtPassword-dangky").val();
+    socket.emit("NGUOI_DUNG_DANG_KY", {
+      username: username,
+      password: password,
+      peerId: id,
+    });
+    $("#my-peer").html('Your Name: ' + username);
+  });
+  $("#btnLogin").click(() => {
+    const username = $("#txtUsername-dangnhap").val();
+    const password = $("#txtPassword-dangnhap").val();
+    socket.emit("NGUOI_DUNG_DANG_NHAP", {
+      username: username,
+      password: password,
+      peerId: id,
+    });
+    $("#my-peer").html('Your Name: ' + username);
+  });
+});
+
+socket.on("DANG_KY_THAT_BAI", (warning) => alert(warning));
+socket.on("DANG_NHAP_THAT_BAI", (warning) => alert(warning));
 
 socket.on("DANH_SACH_ONLINE", (userOnline) => {
   $("#div-chat").show();
@@ -51,34 +79,7 @@ socket.on("DANH_SACH_ONLINE", (userOnline) => {
   });
 });
 
-socket.on("DANG_KY_THAT_BAI", (warning) => alert(warning));
 
-socket.on("DANG_NHAP_THAT_BAI", (warning) => alert(warning));
-
-const peer = new Peer();
-
-peer.on("open", (id) => {
-  $("#btnSignUp").click(() => {
-    const username = $("#txtUsername-dangky").val();
-    const password = $("#txtPassword-dangky").val();
-    socket.emit("NGUOI_DUNG_DANG_KY", {
-      username: username,
-      password: password,
-      peerId: id,
-    });
-    $("#my-peer").append(username);
-  });
-  $("#btnLogin").click(() => {
-    const username = $("#txtUsername-dangnhap").val();
-    const password = $("#txtPassword-dangnhap").val();
-    socket.emit("NGUOI_DUNG_DANG_NHAP", {
-      username: username,
-      password: password,
-      peerId: id,
-    });
-    $("#my-peer").html('Your Name: ' + username);
-  });
-});
 
 $("#ulUser").on("click", "li", function () {
   const id = $(this).attr("id");
@@ -90,8 +91,8 @@ $("#ulUser").on("click", "li", function () {
   $(this).addClass('disabled');
 
   curr_username = username;
-  $(".p-2").addClass("visually-hidden");
-  $(`.${username}`).removeClass("visually-hidden");
+    $(".p-2").addClass("visually-hidden"); //???
+    $(`.${username}`).removeClass("visually-hidden"); //??
 
   var conn = peer.connect(id);
   // on open will be launch when you successfully connect to PeerServer
