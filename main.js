@@ -66,7 +66,7 @@ peer.on("open", (id) => {
       password: password,
       peerId: id,
     });
-    $("#my-peer").append(username);
+    $("#my-peer").html('Your Name: ' + username);
   });
   $("#btnLogin").click(() => {
     const username = $("#txtUsername-dangnhap").val();
