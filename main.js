@@ -1,4 +1,6 @@
-const socket = io('https://server-chat-a99k.onrender.com',{transports: ['websocket']});
+const socket = io("https://server-chat-a99k.onrender.com", {
+  transports: ["websocket"],
+});
 
 $("#div-chat").hide();
 let curr_username = "";
@@ -14,7 +16,7 @@ peer.on("open", (id) => {
       password: password,
       peerId: id,
     });
-    $("#my-peer").html('Your Name: ' + username);
+    $("#my-peer").html("Your Name: " + username);
   });
   $("#btnLogin").click(() => {
     const username = $("#txtUsername-dangnhap").val();
@@ -24,7 +26,7 @@ peer.on("open", (id) => {
       password: password,
       peerId: id,
     });
-    $("#my-peer").html('Your Name: ' + username);
+    $("#my-peer").html("Your Name: " + username);
   });
 });
 
@@ -79,8 +81,6 @@ socket.on("DANH_SACH_ONLINE", (userOnline) => {
   });
 });
 
-
-
 $("#ulUser").on("click", "li", function () {
   const id = $(this).attr("id");
   const username = $(this).text();
@@ -88,11 +88,11 @@ $("#ulUser").on("click", "li", function () {
   $(".list-group-item").removeClass("active");
   $(".list-group-item").removeClass("disabled");
   $(this).addClass("active");
-  $(this).addClass('disabled');
+  $(this).addClass("disabled");
 
   curr_username = username;
-    $(".p-2").addClass("visually-hidden"); //???
-    $(`.${username}`).removeClass("visually-hidden"); //??
+  $(".p-2").addClass("visually-hidden"); //???
+  $(`.${username}`).removeClass("visually-hidden"); //??
 
   var conn = peer.connect(id);
   // on open will be launch when you successfully connect to PeerServer
@@ -108,7 +108,7 @@ $("#ulUser").on("click", "li", function () {
           `<div style="clear: both; float: right; background-color: green; margin: 2px; border-radius: 4px;" class="p-2 ${username}">${mess}</div>`
         );
         conn.send({ content: mess, type: "message" });
-        console.log(conn)
+        console.log(conn);
       }
     });
 
@@ -133,33 +133,3 @@ $("#ulUser").on("click", "li", function () {
     });
   });
 });
-
-// $('#connect').click(()=>{
-//     var id=$('#id-connect').val();
-//     var conn = peer.connect(id);
-//         // on open will be launch when you successfully connect to PeerServer
-//     conn.on('open', function(){
-//         console.log(peer.connections);
-//         document.getElementById('chat-to').innerText='Chat with: '+id;
-//         console.log('connect to: '+ id);
-//         // here you have conn.id
-//         $('#send').click(()=>{
-//             if(conn.open)
-//             {
-//                 const mess=$('#messages').val();
-//                 $('#chat-box').append(`<div style="clear: both; float: right; background-color: green; margin: 2px; border-radius: 4px;">you: ${mess}</div>`)
-//                 conn.send({content: mess, type: 'message'});
-//             }
-//         });
-
-//         $('#send-file').click(()=>{
-//             if(conn.open)
-//             {
-//                 const file = $('#file-upload').files[0];
-//                 const filename = file.split(/(\\|\/)/g).pop();
-//                 $('#chat-box').append(`<a href="${file}" download>${filename}</a>`);
-//                 conn.send({content: file, type: 'file'});
-//             }
-//         });
-//     });
-// });
